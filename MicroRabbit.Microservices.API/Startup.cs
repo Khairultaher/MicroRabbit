@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+
+
 using MediatR;
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Infra.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace MicroRabbit.Microservices.API
 {
@@ -33,7 +30,12 @@ namespace MicroRabbit.Microservices.API
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddControllersWithViews();
-            //services.AddMediatR(typeof(Startup));
+            
+            services.AddSwaggerGen(c=> 
+            {
+                c.SwaggerDoc("v1", new Info { Title= "Banking Microservice", Version="v1" });
+            });
+            services.AddMediatR(typeof(Startup));
             RegisterServices(services);
         }
 
@@ -56,6 +58,14 @@ namespace MicroRabbit.Microservices.API
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Microservice v1");
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();
