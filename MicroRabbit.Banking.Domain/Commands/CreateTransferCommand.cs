@@ -6,7 +6,7 @@ namespace MicroRabbit.Banking.Domain.Commands
 {
     public class CreateTransferCommand:TransferCommand
     {
-        public CreateTransferCommand( int to, int from, decimal amount)
+        public CreateTransferCommand( int from, int to, decimal amount)
         {
             From = from;
             To = to;
