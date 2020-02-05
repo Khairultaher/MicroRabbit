@@ -1,0 +1,8 @@
+
+//  RabbitMQ Service Installtion & Running
+1.	Intstall Erlang dependency OTP 22.2 Windows 64-bit Binary File (94825052)
+2.	Install Installer for Windows systems (from GitHub, recommended) rabbitmq-server-3.8.2.exe
+3.	After installation go to directory sbin directory of the RabbitMQ Server installation directory
+4.  Run the following command to enable the plugin rabbitmq-plugins.bat enable rabbitmq_management
+5.	Navigate to http://localhost:15672/mgmt 
+6.	The default credentials are: Username: guest Password: guest
